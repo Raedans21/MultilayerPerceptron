@@ -69,7 +69,6 @@ class ModelUtils:
         """
         :return: Percentage of correctly classified images
         """
-
         y_pred_labels = np.argmax(self.y_pred, axis=1)
 
         # Convert one-hot encoded true labels into class labels
@@ -134,11 +133,6 @@ test_labels_filepath = "../t10k-labels.idx1-ubyte"
 mnist_loader = MnistDataloader(training_images_filepath, training_labels_filepath, test_images_filepath,
                                test_labels_filepath)
 (x_train, y_train), (x_val, y_val), (x_test, y_test) = mnist_loader.load_data()
-
-# Print shapes to verify
-print("Training set shape: ", x_train.shape, y_train.shape)
-print("Validation set shape: ", x_val.shape, y_val.shape)
-print("Test set shape: ", x_test.shape, y_test.shape)
 
 mlp = MultilayerPerceptron((
     Layer(784, 256, Relu(), dropout_rate=0.2),
