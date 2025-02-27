@@ -80,7 +80,7 @@ class ModelUtils:
                 total_wrong_count += 1
 
         print(f"Total: {len(y_true_labels)}, total wrong: {total_wrong_count}")
-        # Compute accuracy: Percentage of correct predictions
+        # Compute percentage of correct predictions
         accuracy = np.mean(y_pred_labels == y_true_labels)
 
         return accuracy
@@ -93,30 +93,31 @@ class ModelUtils:
         :param y_pred: numpy array of predicted labels
         """
 
-        # Get model predictions
-        y_pred_labels = np.argmax(self.y_pred, axis=1)  # Convert softmax output to label predictions
-        y_true_labels = np.argmax(self.y_test, axis=1)  # Convert one-hot encoded labels to class numbers
+        # Convert model predictions to actual labels
+        y_pred_labels = np.argmax(self.y_pred, axis=1)
+        y_true_labels = np.argmax(self.y_test, axis=1)
 
         # Dictionary to store one example per class
         selected_samples = {}
 
         for i in range(len(y_true_labels)):
-            label = y_true_labels[i]  # True class label
-            if label not in selected_samples:  # Only store one example per class
+            label = y_true_labels[i]
+            # Store one example per class
+            if label not in selected_samples:
                 selected_samples[label] = (self.x_test[i], y_pred_labels[i])
-            if len(selected_samples) == 10:  # Stop once we have one example per digit
+            if len(selected_samples) == 10:
                 break
 
         # Sort samples into true label order
         selected_samples = sorted(selected_samples.items())
 
-        # Plot images
+        # Plot all sample images with model prediction above
         fig, axes = plt.subplots(2, 5, figsize=(10, 5))
         fig.suptitle("Predicted Class for Each Digit (0-9)", fontsize=14)
 
         for i, (label, (image, pred)) in enumerate(selected_samples):
             ax = axes[i // 5, i % 5]
-            ax.imshow(image.reshape(28, 28), cmap="gray")  # Reshape to 28x28
+            ax.imshow(image.reshape(28, 28), cmap="gray")
             ax.set_title(f"MLP Prediction: {pred}", fontsize=10)
             ax.axis("off")
 

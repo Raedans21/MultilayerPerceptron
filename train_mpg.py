@@ -30,8 +30,8 @@ print(f"Rows removed: {rows_removed}")
 X_train, X_leftover, y_train, y_leftover = train_test_split(
     X, y,
     test_size=0.3,
-    random_state=42,    # for reproducibility
-    shuffle=True,       # whether to shuffle the data before splitting
+    random_state=42,
+    shuffle=True,
 )
 
 # Split the remaining 30% into validation/testing (15%/15%)
@@ -42,18 +42,18 @@ X_val, X_test, y_val, y_test = train_test_split(
     shuffle=True,
 )
 
-# Compute statistics for X (features)
-X_mean = X_train.mean(axis=0)  # Mean of each feature
-X_std = X_train.std(axis=0)    # Standard deviation of each feature
+# Compute statistics for X (features) - mean and standard deviation
+X_mean = X_train.mean(axis=0)
+X_std = X_train.std(axis=0)
 
 # Standardize X
 X_train = (X_train - X_mean) / X_std
 X_val = (X_val - X_mean) / X_std
 X_test = (X_test - X_mean) / X_std
 
-# Compute statistics for y (targets)
-y_mean = y_train.mean()  # Mean of target
-y_std = y_train.std()    # Standard deviation of target
+# Compute statistics for y (targets) - mean and standard deviation
+y_mean = y_train.mean()
+y_std = y_train.std()
 
 # Standardize y
 y_train = (y_train - y_mean) / y_std

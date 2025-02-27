@@ -169,7 +169,7 @@ class Layer:
         if self.dropout_rate > 0:
             delta *= self.mask
 
-        # Utilize softmax derivation with cross entropy shortcut assuming softmax is only in final layers
+        # Utilize softmax derivation with cross entropy shortcut assuming softmax is only in final layer
         if isinstance(self.activation_function, Softmax):
             delta_had_dO_dZ = delta
         else:
@@ -313,7 +313,7 @@ class MultilayerPerceptron:
             print(
                 f"Epoch {epoch + 1}: Training Loss = {training_losses[epoch]:.4f}, Validation Loss = {validation_losses[epoch]:.4f}")
 
-        # create training & validation loss graph
+        # Create training & validation loss graph
         plt.figure(figsize=(8, 5))
         plt.plot(range(epochs), training_losses, label='Training Loss', linestyle='-', marker='o')
         plt.plot(range(epochs), validation_losses, label='Validation Loss', linestyle='--', marker='s')
